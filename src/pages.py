@@ -109,6 +109,9 @@ def control(dobot):
 
     col4.button("Home", on_click=dobot.home)
 
+def WIP(dobot):
+    st.write("This page is a work in progress")
+
 
 pages = {
     "Connect": connect,
@@ -118,6 +121,6 @@ pages = {
     "Home": home,
     "Tool": tool,
     "Control": control,
-    "Save": None,
-    "Run": None,
+    "Save": WIP,
+    "Run": WIP,
 }
