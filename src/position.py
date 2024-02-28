@@ -1,14 +1,14 @@
 class Position:
     def __init__(
         self,
-        x: float = 0,
-        y: float = 0,
-        z: float = 0,
-        r: float = 0,
-        j1: float = 0,
-        j2: float = 0,
-        j3: float = 0,
-        j4: float = 0,
+        x: float = 0.0,
+        y: float = 0.0,
+        z: float = 0.0,
+        r: float = 0.0,
+        j1: float = 0.0,
+        j2: float = 0.0,
+        j3: float = 0.0,
+        j4: float = 0.0,
         grip: bool = False,
         suction: bool = False,
     ):

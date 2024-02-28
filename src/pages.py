@@ -15,12 +15,24 @@ def connect(dobot):
         st.success(f"Connected to port {selected_port}")
 
 
+def speed(dobot):
+    if not dobot.connected:
+        st.warning("Please connect to the robot first")
+        return
+
+    velocity = st.number_input("Velocity:", value=100.0)
+    acceleration = st.number_input("Acceleration:", value=100.0)
+
+    if st.button("Set Speed"):
+        dobot.set_speed(velocity, acceleration)
+
+
 def move(dobot):
     if not dobot.connected:
         st.warning("Please connect to the robot first")
         return
 
-    axis = st.selectbox("Select the axis to move:", ["X", "Y", "Z", "R"])
+    axis = st.selectbox("Select the axis to move:", ["x", "y", "z", "r"])
     distance = st.number_input("Distance to move:", value=1.0)
     wait = st.checkbox("Wait for movement to finish")
 
@@ -33,13 +45,17 @@ def move_to(dobot):
         st.warning("Please connect to the robot first")
         return
 
-    x = st.number_input("X coordinate:", value=0.0)
-    y = st.number_input("Y coordinate:", value=0.0)
-    z = st.number_input("Z coordinate:", value=0.0)
-    r = st.number_input("R coordinate:", value=0.0)
-    wait = st.checkbox("Wait for movement to finish")
+    current_position = dobot.pose()
 
-    if st.button("Move to"):
+    x = st.number_input("X coordinate:", value=current_position.x)
+    y = st.number_input("Y coordinate:", value=current_position.y)
+    z = st.number_input("Z coordinate:", value=current_position.z)
+    r = st.number_input("R coordinate:", value=current_position.r)
+
+    col1, col2 = st.columns(2)
+
+    wait = col1.checkbox("Wait for movement to finish")
+    if col2.button("Move to"):
         dobot.move_to(Position(x, y, z, r), wait)
 
 
@@ -48,7 +64,6 @@ def home(dobot):
         st.warning("Please connect to the robot first")
         return
 
-    # botao que manda pra home
     home_button = st.button("Press to go home")
 
     if home_button:
@@ -60,53 +75,44 @@ def tool(dobot):
         st.warning("Please connect to the robot first")
         return
 
-    toggle = st.toggle("Tool state", dobot.tool_enabled)
-
-    if toggle == dobot.tool_enabled:
-        return
-
-    if toggle:
-        dobot.enable_tool()
-    else:
-        dobot.disable_tool()
+    st.button("Enable Tool", on_click=dobot.enable_tool)
+    st.button("Disable Tool", on_click=dobot.disable_tool)
 
 
 def control(dobot):
-    # slider x slider y slider z slider r
-    #   Todos os sliders representam a posição atual do robô
-    #   Ao mover o slider, o robô move
-    #   Ao mover o robô, o slider se move
-    # botao que manda pra home
-    # toggle de ferramenta
-
     if not dobot.connected:
         st.warning("Please connect to the robot first")
         return
 
     current_position = dobot.pose()
+    print(current_position)
 
-    x = st.slider("X", -300, 300, current_position.x)
-    y = st.slider("Y", -300, 300, current_position.y)
-    z = st.slider("Z", -300, 300, current_position.z)
-    r = st.slider("R", -180, 180, current_position.r)
+    x = st.slider("X", -300.0, 300.0, current_position.x)
+    y = st.slider("Y", -300.0, 300.0, current_position.y)
+    z = st.slider("Z", -300.0, 300.0, current_position.z)
+    r = st.slider("R", -180.0, 180.0, current_position.r)
 
-    dobot.move_to(Position(x, y, z, r), wait=False)
+    speed = st.number_input("Speed", value=100.0)
+    acceleration = st.number_input("Acceleration", value=100.0)
 
-    tool_toggle = st.checkbox("Tool State", dobot.tool_enabled)
+    col1, col2, col3, col4 = st.columns(4)
 
-    if tool_toggle != dobot.tool_enabled:
-        if tool_toggle:
-            dobot.enable_tool(time_to_wait=0)
-        else:
-            dobot.disable_tool(time_to_wait=0)
+    if col1.button("Move"):
+        dobot.move_to(Position(x, y, z, r), wait=True)
+        dobot.set_speed(speed, acceleration)
 
-    st.button("Home", on_click=dobot.home)
+    if col2.button("Enable Tool"):
+        dobot.enable_tool()
 
-    dobot.pose().to_dict()
+    if col3.button("Disable Tool"):
+        dobot.disable_tool()
+
+    col4.button("Home", on_click=dobot.home)
 
 
 pages = {
     "Connect": connect,
+    "Set speed": speed,
     "Move": move,
     "Move to": move_to,
     "Home": home,

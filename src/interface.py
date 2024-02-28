@@ -7,9 +7,10 @@ st.title("Dobot Robot Controller")
 
 
 def get_dobot():
-    if 'dobot' not in st.session_state:
+    if "dobot" not in st.session_state:
         st.session_state.dobot = DobotController()
     return st.session_state.dobot
+
 
 dobot = get_dobot()
 

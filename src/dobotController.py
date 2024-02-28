@@ -8,12 +8,14 @@ from position import Position
 class DobotController:
     def __init__(self):
         self.tool_enabled = False
-        self.home_position = Position(240, 0, 150, 0, 0, 0, 0, 0, False, False)
+        self.home_position = Position(
+            240.0, 0.0, 150.0, 0.0, 0.0, 0.0, 0.0, 0.0, False, False
+        )
         self.connected = False
 
     def list_ports(self):
         ports = [port.device for port in list_ports.comports()]
-        ports.append('mock')
+        ports.append("mock")
 
         return ports
 
@@ -34,7 +36,10 @@ class DobotController:
         current_position.suction = self.tool_enabled
         return current_position
 
-    def move_to(self, position, wait=False):
+    def set_speed(self, speed, acceleration):
+        self.dobot.speed(speed, acceleration)
+
+    def move_to(self, position, wait=True):
         self.dobot.move_to(*position.to_list(), wait=wait)
 
     def move_by_axis(self, axis, distance, wait):

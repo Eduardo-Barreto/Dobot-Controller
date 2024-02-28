@@ -10,21 +10,22 @@ mocked_serial = MockedSerial()
 
 class Dobot:
     def __init__(self, port, verbose=False):
-        self.x = 0
-        self.y = 0
-        self.z = 0
-        self.r = 0
-        self.j1 = 0
-        self.j2 = 0
-        self.j3 = 0
-        self.j4 = 0
+        self.x = 0.0
+        self.y = 0.0
+        self.z = 0.0
+        self.r = 0.0
+        self.j1 = 0.0
+        self.j2 = 0.0
+        self.j3 = 0.0
+        self.j4 = 0.0
         self.suction_enabled = False
         print(f"Connecting to Dobot on port {port}")
 
     def close(self):
         print("Closing connection to Dobot")
 
-    def move_to(self, x, y, z, r, wait=False):
+
+    def move_to(self, x: float, y: float, z: float, r: float, wait=False):
         self.x = x
         self.y = y
         self.z = z
