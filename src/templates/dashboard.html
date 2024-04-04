@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dobot Controller</title>
+    <script src="https://unpkg.com/htmx.org@1.9.11"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css"
+    />
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Dobot Controller</h1>
+        <p class="subtitle">Control yout dobot!</p>
+        <p></p>
+      </div>
+
+      <form
+        class="box"
+        hx-get="http://localhost:5000/fields"
+        hx-swap="afterbegin"
+        hx-trigger="load"
+      >
+        <div class="buttons">
+          <button
+            class="button is-primary"
+            hx-get="/toggle-tool"
+            hx-swap="none"
+          >
+            Toggle suction
+          </button>
+          <button
+            class="button is-primary"
+            hx-post="http://localhost:5000/move"
+            hx-ext="json-enc"
+            hx-swap="none"
+          >
+            Submit
+          </button>
+          <button class="button is-danger" hx-get="/disconnect">
+            Disconnect
+          </button>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

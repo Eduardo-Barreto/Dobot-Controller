@@ -1,8 +1,8 @@
 from serial.tools import list_ports
 import pydobot
-import mock_pydobot
+from . import mock_pydobot
 
-from position import Position
+from .position import Position
 
 
 class DobotController:
@@ -14,8 +14,8 @@ class DobotController:
         self.connected = False
 
     def list_ports(self):
-        ports = [port.device for port in list_ports.comports()]
-        ports.append("mock")
+        ports = ["mock"]
+        ports.extend([port.device for port in list_ports.comports()])
 
         return ports
 
@@ -30,6 +30,7 @@ class DobotController:
 
     def disconnect(self):
         self.dobot.close()
+        self.connected = False
 
     def pose(self):
         current_position = Position(*self.dobot.pose())
@@ -73,3 +74,9 @@ class DobotController:
         self.dobot.suck(False)
         self.dobot.wait(time_to_wait)
         self.tool_enabled = False
+
+    def toggle_tool(self):
+        if self.tool_enabled:
+            self.disable_tool()
+        else:
+            self.enable_tool()
