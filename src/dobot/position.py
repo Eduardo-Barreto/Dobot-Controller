@@ -12,14 +12,14 @@ class Position:
         grip: bool = False,
         suction: bool = False,
     ):
-        self.x = x
-        self.y = y
-        self.z = z
-        self.r = r
-        self.j1 = j1
-        self.j2 = j2
-        self.j3 = j3
-        self.j4 = j4
+        self.x = round(x, 2)
+        self.y = round(y, 2)
+        self.z = round(z, 2)
+        self.r = round(r, 2)
+        self.j1 = round(j1, 2)
+        self.j2 = round(j2, 2)
+        self.j3 = round(j3, 2)
+        self.j4 = round(j4, 2)
         self.grip = grip
         self.suction = suction
 

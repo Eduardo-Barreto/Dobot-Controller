@@ -1,0 +1,10 @@
+<form class="box">
+  {%for axis, value in values.items()%}
+  <div class="field">
+    <label class="label">{{axis}}</label>
+    <div class="control">
+      <input class="input" type="number" name="{{axis}}" value="{{value}}" />
+    </div>
+  </div>
+  {%endfor%}
+</form>

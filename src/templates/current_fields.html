@@ -1,0 +1,15 @@
+<form class="box">
+  {%for axis, value in values.items()%}
+  <div class="field">
+    <label class="label">{{axis}}: {{value}}</label>
+    <div class="control">
+      <progress class="progress is-link" value="{{value}}" min="-250" max="250">
+        {{value}}%
+      </progress>
+    </div>
+  </div>
+  {%endfor%}
+  <br />
+  Suction:
+  <span class="tag is-{{suction_tag}} is-small"> {{suction}} </span>
+</form>

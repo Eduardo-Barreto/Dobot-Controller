@@ -1,1 +1,1 @@
-{"_default": {"10": {"timestamp": "2024-04-04 15:32:42.086409", "ip_address": "127.0.0.1", "action": "toggle_tool", "parameters": {}}, "11": {"timestamp": "2024-04-04 15:32:42.239119", "ip_address": "127.0.0.1", "action": "toggle_tool", "parameters": {}}, "13": {"timestamp": "2024-04-04 15:32:42.598601", "ip_address": "127.0.0.1", "action": "move", "parameters": {"x": "0.0", "y": "0.0", "z": "0.0", "r": "0.0"}}}}
+{"_default": {}}

@@ -121,10 +121,10 @@ def home():
 
 @app.route("/move", methods=["POST"])
 def move():
-    x = request.form.get("x")
-    y = request.form.get("y")
-    z = request.form.get("z")
-    r = request.form.get("r")
+    x = float(request.form.get("x"))
+    y = float(request.form.get("y"))
+    z = float(request.form.get("z"))
+    r = float(request.form.get("r"))
     position = Position(x, y, z, r)
 
     ip_address = request.remote_addr
@@ -195,7 +195,7 @@ def toggle_tool():
     return "ok"
 
 
-@app.route("/fields")
+@app.route("/input-fields")
 def get_fields():
     ip_address = request.remote_addr
 
@@ -211,7 +211,18 @@ def get_fields():
 
     pose = dobot_controller.pose()
     values = {"x": pose.x, "y": pose.y, "z": pose.z, "r": pose.r}
-    return render_template("fields.html", values=values)
+    return render_template("input_fields.html", values=values)
+
+
+@app.route("/current-fields")
+def current_fields():
+    pose = dobot_controller.pose()
+    values = {"x": pose.x, "y": pose.y, "z": pose.z, "r": pose.r}
+    suction = "Enabled" if pose.suction else "Disabled"
+    suction_tag = "success" if pose.suction else "danger"
+    return render_template(
+        "current_fields.html", values=values, suction=suction, suction_tag=suction_tag
+    )
 
 
 @app.route("/dashboard")
