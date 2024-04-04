@@ -2,7 +2,6 @@ from flask import Flask, redirect, request, render_template, Response
 from flask_cors import CORS
 import json
 
-from werkzeug.datastructures import headers
 from dobot.dobotController import DobotController
 from dobot.position import Position
 
