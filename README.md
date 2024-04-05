@@ -4,6 +4,10 @@ Um controlador para o braço robótico Dobot Magician Lite
 
 # Interface
 
+Clique abaixo para ver a demonstração
+
+[![Interface Demo](https://img.youtube.com/vi/P-F1bkRPIzs/0.jpg)](https://www.youtube.com/watch?v=P-F1bkRPIzs)
+
 A interface foi desenvolvida usando Flask, HTMX e BulmaCSS
 
 Antes de rodar a interface, é necessário instalar suas dependências
